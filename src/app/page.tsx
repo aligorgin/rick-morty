@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Card from '@/Components/Card';
-import Search from '@/Components/Search';
+import Card from '@/components/Card';
+import Search from '@/components/Search';
 
 const queryData = async (query: string, variables: any) => {
 	try {
@@ -72,9 +72,6 @@ export default function Page() {
 			setPage((prevPage) => prevPage + 1);
 		}
 	};
-
-	console.log(data);
-	console.log(page);
 
 	if (data.length === 0) {
 		return (

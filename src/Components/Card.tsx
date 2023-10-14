@@ -21,7 +21,7 @@ export default function Card({ status, imageUrl, alt, name, location, id }: Prop
 	};
 
 	return (
-		<Link href={`rick/characters/${id}`}>
+		<Link href={`/characters/${id}`}>
 			<div className="relative cursor-pointer rounded-md bg-zinc-800 shadow-2xl shadow-white/10 transition hover:scale-105">
 				<div className="absolute left-2 top-1 z-10 flex items-center justify-center space-x-1 rounded-lg bg-zinc-800/70 p-1 backdrop-blur-md">
 					<div

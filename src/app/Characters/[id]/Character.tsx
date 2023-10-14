@@ -114,7 +114,7 @@ export default function Character({ params }: { params: { id: string } }) {
 			</div>
 			<div className="mt-12 flex items-center justify-center">
 				<Link
-					href={'/rick'}
+					href={'/'}
 					className="flex cursor-pointer items-center justify-center space-x-2 rounded-md border border-zinc-600 px-4 py-2 text-xl transition hover:-translate-y-1 active:scale-95"
 				>
 					<ArrowLeftIcon className="h-6 w-6 " />
