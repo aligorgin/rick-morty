@@ -1,3 +1,5 @@
+'use client';
+
 import { ChangeEvent, useEffect } from 'react';
 import useResultsStore from '../store/useResultStore';
 
