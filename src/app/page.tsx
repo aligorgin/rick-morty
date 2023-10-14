@@ -1,4 +1,5 @@
 'use client';
+import useResultsStore from '@/store/useResultStore';
 
 import { useEffect, useState } from 'react';
 import Card from '@/components/Card';
@@ -25,6 +26,8 @@ export default function Page() {
 	const [data, setData] = useState<any>([]);
 	const [page, setPage] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
+	const { results, charName, isDebounced } = useResultsStore();
+
 
 	useEffect(() => {
 		if (!hasMore) {
@@ -64,7 +67,10 @@ export default function Page() {
 			if (res.data.characters.info.next === null) {
 				setHasMore(false);
 			}
-		});
+		}).catch((e) => {
+			console.log(e)
+		});;
+
 	}, [page, hasMore]);
 
 	const handleClick = () => {
@@ -88,6 +94,7 @@ export default function Page() {
 		);
 	}
 
+
 	return (
 		<div className="mb-12">
 			<div className="mt-12 px-4 text-center text-4xl font-bold">
@@ -97,7 +104,7 @@ export default function Page() {
 				<Search />
 			</div>
 			<div className="mt-8 grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-0">
-				{data &&
+				{data && results.length === 0 && charName === '' &&
 					data.map((result: any, index: number) => {
 						return (
 							<Card
@@ -111,9 +118,38 @@ export default function Page() {
 							/>
 						);
 					})}
+				{
+					results.length >= 1 && results.map((result: any, index: number) => {
+						return (
+							<Card
+								key={index}
+								alt={result.name}
+								imageUrl={result.image}
+								location={result.location.name}
+								name={result.name}
+								status={result.status}
+								id={result.id}
+							/>
+						);
+					})
+				}
 			</div>
+			{
+				results.length === 0 && charName && isDebounced && (
+					<div className=' flex justify-center items-center '>
+						<div className='p-2 bg-red-500 w-[300px] font-semibold rounded-md flex justify-center items-center'>We couldn&apos;t find {`'${charName}'`}</div>
+					</div>
+				)
+			}
+			{
+				results.length === 0 && charName && !isDebounced && (
+					<div className='flex justify-center items-center'>
+						<div className='p-2 bg-white w-[280px] text-black font-semibold rounded-md flex items-center justify-center '>Searching...</div>
+					</div>
+				)
+			}
 			<div className="mt-12 flex items-center justify-center">
-				{hasMore && (
+				{hasMore && results.length === 0 && charName === '' && (
 					<div
 						onClick={handleClick}
 						className="cursor-pointer rounded-md border border-zinc-600 px-4 py-2 text-xl transition hover:-translate-y-1 active:scale-95"

@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import useResultsStore from '@/store/useResultStore';
 
 const queryData = async (query: string, variables: any) => {
@@ -19,34 +19,47 @@ const queryData = async (query: string, variables: any) => {
 };
 
 export default function Search() {
-	const [char, setChar] = useState('');
-	const { results, setResults, clearResults } = useResultsStore();
-
-	useEffect(() => {
-		if (char === '') return;
-		queryData(
-			` query GetCharactersByName($name: String!) {
-                characters(filter: { name: $name }) {
-                  results {
-                    name
-                    id
-                    image
-                    status
-                  }
-                }
-              }`,
-			{
-				pageNumber: char
-			}
-		).then((res) => {
-			const results = res.data.characters.results;
-			setResults(results);
-		});
-	}, [char, setResults]);
+	const { setResults, clearResults, charName, setCharName, isDebounced, setIsDebounced } = useResultsStore();
 
 	const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setChar(e.target.value);
+		setCharName(e.target.value);
 	};
+
+	useEffect(() => {
+		setIsDebounced(false);
+		if (charName === '') {
+			clearResults();
+			return;
+		};
+		const timer = setTimeout(() => {
+			queryData(
+				` query GetCharactersByName($name: String!) {
+					characters(filter: { name: $name }) {
+					  results {
+						name
+						id
+						image
+						status
+						location{
+							name
+						}
+					  }
+					}
+				  }`,
+				{
+					name: charName
+				}
+			).then((res) => {
+				const results = res.data.characters.results;
+				setResults(results)
+				setIsDebounced(true);
+			}).catch((e) => {
+				console.log(e)
+			});
+		}, 500)
+
+		return () => clearTimeout(timer);
+	}, [charName, clearResults, setIsDebounced, setResults]);
 
 	return (
 		<div>
@@ -55,6 +68,7 @@ export default function Search() {
 				placeholder="Character Name"
 				type="text"
 				onChange={handleOnChange}
+				max="30"
 			/>
 		</div>
 	);

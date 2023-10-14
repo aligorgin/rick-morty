@@ -54,15 +54,16 @@ export default function Character({ params }: { params: { id: string } }) {
 		).then((res) => {
 			const result = res.data.character;
 			setData(result);
-		});
+		}).catch((e) => {
+			console.log(e)
+		});;
 	}, [params.id]);
 
-	console.log(data);
 
 	if (!data) {
 		return (
-			<div className="mt-12 flex flex-col space-x-4 sm:flex-row">
-				<div className="shimmer h-[400px] w-[250px] rounded-md" />
+			<div className="mt-12 flex flex-col space-x-0 sm:space-y-0 sm:space-x-4 sm:flex-row space-y-4">
+				<div className="shimmer h-[400px] w-[250px] rounded-md mx-auto " />
 				<div className="flex flex-col items-center justify-center space-y-8">
 					<div className="shimmer h-8 w-[300px] rounded-md" />
 					<div className="shimmer h-12 w-[300px] rounded-md" />

@@ -28,7 +28,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 		{
 			characterId: parseInt(params.id)
 		}
-	);
+	).catch((e) => {
+		console.log(e)
+	});;
 	return {
 		title: name ? name.data.character.name : 'Rick API'
 	};
