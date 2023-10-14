@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import useResultsStore from '@/store/useResultStore';
+import { ChangeEvent, useEffect } from 'react';
+import useResultsStore from '../store/useResultStore';
 
 const queryData = async (query: string, variables: any) => {
 	try {
