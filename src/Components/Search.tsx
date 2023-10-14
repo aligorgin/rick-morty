@@ -19,7 +19,7 @@ const queryData = async (query: string, variables: any) => {
 };
 
 export default function Search() {
-	const { setResults, clearResults, charName, setCharName, isDebounced, setIsDebounced } = useResultsStore();
+	const { setResults, clearResults, charName, setCharName, setIsDebounced } = useResultsStore();
 
 	const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setCharName(e.target.value);
