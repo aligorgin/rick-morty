@@ -144,7 +144,7 @@ export default function Page() {
 			{
 				results.length === 0 && charName && !isDebounced && (
 					<div className='flex justify-center items-center'>
-						<div className='p-2 bg-white w-[280px] text-black font-semibold rounded-md flex items-center justify-center '>Searching...</div>
+						<div className='p-2 bg-white w-[300px] text-black font-semibold rounded-md flex items-center justify-center '>Searching...</div>
 					</div>
 				)
 			}
