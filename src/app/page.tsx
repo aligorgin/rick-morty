@@ -1,9 +1,9 @@
 'use client';
 
-import useResultsStore from '@/store/useResultStore';
-import { useEffect, useState } from 'react';
 import Card from '@/components/Card';
 import Search from '@/components/Search';
+import useResultsStore from '@/store/useResultStore';
+import { useEffect, useState } from 'react';
 
 const queryData = async (query: string, variables: any) => {
 	try {
