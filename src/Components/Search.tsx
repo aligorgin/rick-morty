@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useEffect } from 'react';
-import useResultsStore from '@/store/useResultStore';
+import useResultsStore from '../store/useResultStore';
 
 const queryData = async (query: string, variables: any) => {
 	try {
