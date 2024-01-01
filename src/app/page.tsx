@@ -1,7 +1,7 @@
 'use client';
 
-import Card from '@/components/Card';
-import Search from '@/components/Search';
+import Card from './Card';
+import Search from './Search';
 import useResultsStore from '@/store/useResultStore';
 import { useEffect, useState } from 'react';
 
