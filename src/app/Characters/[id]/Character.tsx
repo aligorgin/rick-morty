@@ -5,6 +5,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import useResultsStore from '../../../store/useResultStore';
 
 const queryData = async (query: string, variables: any) => {
 	try {
@@ -26,6 +27,7 @@ const queryData = async (query: string, variables: any) => {
 export default function Character({ params }: { params: { id: string } }) {
 	const [data, setData] = useState<any>(null);
 	const [loaded, setLoaded] = useState<boolean>(true);
+	const { setCharName } = useResultsStore();
 
 	const handleImageLoad = () => {
 		setLoaded(false);
@@ -74,6 +76,10 @@ export default function Character({ params }: { params: { id: string } }) {
 		);
 	}
 
+	const handleOnClickPrevPageCharName = () => {
+		setCharName('')
+	}
+
 	return (
 		<div className="px-4 sm:px-0">
 			<div className="mt-12 text-center text-4xl font-bold">{data.name}</div>
@@ -116,6 +122,7 @@ export default function Character({ params }: { params: { id: string } }) {
 			<div className="mt-12 flex items-center justify-center">
 				<Link
 					href={'/'}
+					onClick={handleOnClickPrevPageCharName}
 					className="flex cursor-pointer items-center justify-center space-x-2 rounded-md border border-zinc-600 px-4 py-2 text-xl transition hover:-translate-y-1 active:scale-95"
 				>
 					<ArrowLeftIcon className="h-6 w-6 " />
